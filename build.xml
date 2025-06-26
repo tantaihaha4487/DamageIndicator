@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AutoItemInActionbar" default="Build" basedir=".">
+
+    <property name="jar.name" value="${ant.project.name}-1.0-SNAPSHOT.jar"/>
+    <property name="output.dir" value="/home/mashiro/Minecraft/servers/test-server/plugins"/>
+    <property name="classes.dir" value="target/classes"/>
+
+    <target name="clean">
+        <!-- Print clean info -->
+        <echo message="Cleaning: ${output.dir}/${jar.name}"/>
+
+        <!-- Delete existing jar -->
+        <delete file="${output.dir}/${jar.name}" quiet="true"/>
+
+    </target>
+
+    <target name="Build">
+        <!-- Print build info -->
+        <echo message="Building: ${output.dir}/${jar.name}"/>
+
+        <!-- Delete existing jar -->
+
+        <!-- Build new jar -->
+        <jar
+                jarfile="${output.dir}/${jar.name}"
+                basedir="${classes.dir}"
+                includes="**/*"
+                update="false"
+        />
+    </target>
+
+</project>

@@ -1,0 +1,5 @@
+name: DamageIndicator
+version: '1.0.0'
+main: xyz.tantaihaha.damageIndicator.DamageIndicator
+api-version: '1.21'
+authors: [ TantaiHaha, Thanachot ]
