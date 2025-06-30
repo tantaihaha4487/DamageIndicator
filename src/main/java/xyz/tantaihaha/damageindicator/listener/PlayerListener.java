@@ -1,4 +1,4 @@
-package xyz.tantaihaha.damageIndicator.listener;
+package xyz.tantaihaha.damageindicator.listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,8 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
-import xyz.tantaihaha.damageIndicator.manager.ArmorStandManager;
-import xyz.tantaihaha.damageIndicator.utils.ArmorStandName;
+import xyz.tantaihaha.damageindicator.manager.ArmorStandManager;
+import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
 
 public class PlayerListener implements Listener {
     @EventHandler

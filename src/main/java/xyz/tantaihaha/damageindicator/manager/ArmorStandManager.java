@@ -1,4 +1,4 @@
-package xyz.tantaihaha.damageIndicator.manager;
+package xyz.tantaihaha.damageindicator.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -7,7 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitScheduler;
-import xyz.tantaihaha.damageIndicator.DamageIndicator;
+import xyz.tantaihaha.damageindicator.DamageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;

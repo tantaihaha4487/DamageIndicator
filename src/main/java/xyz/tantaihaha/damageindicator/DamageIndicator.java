@@ -1,9 +1,9 @@
-package xyz.tantaihaha.damageIndicator;
+package xyz.tantaihaha.damageindicator;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import xyz.tantaihaha.damageIndicator.listener.EntityListener;
-import xyz.tantaihaha.damageIndicator.listener.PlayerListener;
-import xyz.tantaihaha.damageIndicator.manager.ArmorStandManager;
+import xyz.tantaihaha.damageindicator.listener.EntityListener;
+import xyz.tantaihaha.damageindicator.listener.PlayerListener;
+import xyz.tantaihaha.damageindicator.manager.ArmorStandManager;
 
 public final class DamageIndicator extends JavaPlugin {
 
