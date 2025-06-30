@@ -50,6 +50,16 @@ public class ArmorStandManager {
         armorStandList.clear();
     }
 
+    /**
+     * Generates a random position offset for armor stands within a range of -0.999 to 0.999
+     * to prevent overlapping of damage indicators.
+     *
+     * @return A random double value between -0.999 and 0.999.
+     */
+    public static double randomPosition() {
+        return Math.random() * 1.998 - 0.999;
+    }
+
     public static boolean isIgnoreType(Entity entity) {
         EntityType type = entity.getType();
         return switch (type) {

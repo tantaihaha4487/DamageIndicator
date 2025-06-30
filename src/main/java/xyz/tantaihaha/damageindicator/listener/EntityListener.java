@@ -19,14 +19,15 @@ public class EntityListener implements Listener {
 
         // ignore if player is damage entity
         if (event instanceof EntityDamageByEntityEvent e) if(e.getDamager() instanceof Player) return;
-        if(ArmorStandManager.isIgnoreType(event.getEntity())) return;
+//        if(ArmorStandManager.isIgnoreType(event.getEntity())) return;
+        if(!event.getEntity().getType().isSpawnable() || !event.getEntity().getType().isAlive()) return;
 
         Entity entity = event.getEntity();
         double finalDamage = event.getFinalDamage();
-        Location location = entity.getLocation().add(0.100, entity.getHeight()+ 0.03D, 0.100);
+        Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
         ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, ArmorStandName.damageFormat(finalDamage, entity));
 
-        ArmorStandManager.removeArmorStandAfter(armorStand, 12); // Remove armor stand after 10 ticks (0.5 seconds)
+        ArmorStandManager.removeArmorStandAfter(armorStand, 12);
     }
 
     @EventHandler

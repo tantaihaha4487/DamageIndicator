@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
                 && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK;
 
         double finalDamage = event.getFinalDamage();
-        Location location = entity.getLocation().add(0.1, entity.getHeight() + 0.03D, 0.1);
+        Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
         String displayText = ArmorStandName.damageFormat(finalDamage, entity);
 
         if (isCritical) {
