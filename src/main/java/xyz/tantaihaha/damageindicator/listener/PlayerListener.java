@@ -20,7 +20,7 @@ public class PlayerListener implements Listener {
 
         // if damaged by player
         if (!(event.getDamager() instanceof Player player)) return;
-        if(ArmorStandManager.isIgnoreType(event.getEntity())) return;
+        if (ArmorStandManager.isIgnoreType(event.getEntity())) return;
 
         Entity entity = event.getEntity();
 

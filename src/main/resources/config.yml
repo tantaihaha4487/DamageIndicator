@@ -1,0 +1,31 @@
+#
+# Enable or disable the plugin
+# This will be effect when reload or restart the server.
+# true to enable, false to disable
+#
+enable: ture
+
+indicator:
+  # Format for displaying in indicators
+  # {damage} is the amount of damage dealt
+  # {healAmount} is the amount of health restored
+  # {currentHealth} is the current health of the entity
+  # {maxHealth} is the maximum health of the entity
+  health-indicator-format: "<aqua>+{healAmount}</aqua> <green>[{currentHealth}/{maxHealth}❤]</green>"
+  damage-indicator-format: "<red>-{damage}</red> <green>[{currentHealth}/{maxHealth}❤]</green>"
+
+  # The lifetime of the indicators in ticks before they disappear
+  # must be greater than 1
+  lifetime: 12
+
+# List of entities and worlds to ignore
+ignore:
+  # This will not show any indicators for these entities
+  # You can add more entities to this list
+  entities:
+    - "item_frame"
+    - "item" # Dropped items
+
+# List of worlds to ignore
+  worlds:
+    - "world_example"

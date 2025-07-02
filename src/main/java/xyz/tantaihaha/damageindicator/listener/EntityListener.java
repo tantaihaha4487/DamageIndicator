@@ -18,9 +18,9 @@ public class EntityListener implements Listener {
     public void onEntityDamageEvent(EntityDamageEvent event) {
 
         // ignore if player is damage entity
-        if (event instanceof EntityDamageByEntityEvent e) if(e.getDamager() instanceof Player) return;
+        if (event instanceof EntityDamageByEntityEvent e) if (e.getDamager() instanceof Player) return;
 //        if(ArmorStandManager.isIgnoreType(event.getEntity())) return;
-        if(!event.getEntity().getType().isSpawnable() || !event.getEntity().getType().isAlive()) return;
+        if (!event.getEntity().getType().isSpawnable() || !event.getEntity().getType().isAlive()) return;
 
         Entity entity = event.getEntity();
         double finalDamage = event.getFinalDamage();
@@ -32,7 +32,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onEntityHealEvent(EntityRegainHealthEvent event) {
-        if(ArmorStandManager.isIgnoreType(event.getEntity())) return;
+        if (ArmorStandManager.isIgnoreType(event.getEntity())) return;
 
         Entity entity = event.getEntity();
         double healAmount = event.getAmount();

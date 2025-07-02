@@ -35,7 +35,7 @@ public class ArmorStandManager {
     public static void removeArmorStandAfter(ArmorStand armorStand, int delay) {
         BukkitScheduler scheduler = Bukkit.getScheduler();
         scheduler.runTaskLater(DamageIndicator.getInstance(), () -> {
-            if(!armorStand.isValid()) return;
+            if (!armorStand.isValid()) return;
             armorStandList.remove(armorStand);
             armorStand.remove();
 
