@@ -35,7 +35,7 @@ public class PlayerListener implements Listener {
 
         double finalDamage = event.getFinalDamage();
         Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
-        String displayText = ArmorStandName.damageFormat(finalDamage, entity);
+        String displayText = ArmorStandName.damageFormat(finalDamage, entity).toString();
 
         if (isCritical) {
             displayText = ChatColor.GOLD.toString() + ChatColor.BOLD + "✧ " + displayText;

@@ -1,14 +1,11 @@
 package xyz.tantaihaha.damageindicator.config;
 
-import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.tantaihaha.damageindicator.DamageIndicator;
 
-import javax.swing.text.html.parser.Entity;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static xyz.tantaihaha.damageindicator.config.ConfigManager.init;
 

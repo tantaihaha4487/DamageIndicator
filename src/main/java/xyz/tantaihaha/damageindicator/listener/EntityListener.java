@@ -25,7 +25,7 @@ public class EntityListener implements Listener {
         Entity entity = event.getEntity();
         double finalDamage = event.getFinalDamage();
         Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
-        ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, ArmorStandName.damageFormat(finalDamage, entity));
+        ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, ArmorStandName.damageFormat(finalDamage, entity).toString());
 
         ArmorStandManager.removeArmorStandAfter(armorStand, 12);
     }
@@ -37,7 +37,7 @@ public class EntityListener implements Listener {
         Entity entity = event.getEntity();
         double healAmount = event.getAmount();
         Location location = entity.getLocation().add(0.100, entity.getHeight() + 0.03D, 0.100);
-        ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, ArmorStandName.healFormat(healAmount, entity));
+        ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, ArmorStandName.healFormat(healAmount, entity).toString());
 
         ArmorStandManager.removeArmorStandAfter(armorStand, 12);
     }

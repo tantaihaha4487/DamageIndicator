@@ -14,7 +14,7 @@ public class ConfigManager {
     private static ArrayList<World> ignoreWorlds = new ArrayList<>();
     private static ArrayList<EntityType> ignoreEntities = new ArrayList<>();
     private static String healthIndicatorFormat;
-    private static String damageIndicatorFormat = "<red>-{damage}</red> <green>[{currentHealth}/{maxHealth}❤]</green>";
+    private static String damageIndicatorFormat = "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
 
     protected static void init(YamlConfiguration config) {
         // Load plugin enable configuration
@@ -48,17 +48,17 @@ public class ConfigManager {
         }
 
         // Load health indicator format
-        healthIndicatorFormat = config.getString("indicator.health-indicator-format", "<aqua>+{healAmount}</aqua> <green>[{currentHealth}/{maxHealth}❤]</green>");
+        healthIndicatorFormat = config.getString("indicator.health-indicator-format", "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>");
         if (healthIndicatorFormat.isEmpty()) {
             Bukkit.getLogger().warning("Health indicator format is not set or empty. Using default format.");
-            healthIndicatorFormat = "<aqua>+{healAmount}</aqua> <green>[{currentHealth}/{maxHealth}❤]</green>";
+            healthIndicatorFormat = "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>";
         }
 
         // Load damage indicator format
-        damageIndicatorFormat = config.getString("indicator.damage-format", "<red>-{damage}</red> <green>[{currentHealth}/{maxHealth}❤]</green>");
+        damageIndicatorFormat = config.getString("indicator.damage-format", "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>");
         if (damageIndicatorFormat.isEmpty()) {
             Bukkit.getLogger().warning("Damage indicator format is not set or empty. Using default format.");
-            damageIndicatorFormat = "<red>-{damage}</red> <green>[{currentHealth}/{maxHealth}❤]</green>";
+            damageIndicatorFormat = "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
         }
 
     }

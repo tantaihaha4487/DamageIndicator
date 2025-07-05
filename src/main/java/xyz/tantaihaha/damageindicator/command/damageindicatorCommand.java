@@ -9,11 +9,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NullMarked;
 import xyz.tantaihaha.damageindicator.config.ConfigFile;
 import xyz.tantaihaha.damageindicator.config.ConfigManager;
+import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
 
 import java.util.Collection;
 import java.util.List;
 
-import static xyz.tantaihaha.damageindicator.config.ConfigManager.*;
+import static xyz.tantaihaha.damageindicator.config.ConfigManager.getDamageIndicatorFormat;
+import static xyz.tantaihaha.damageindicator.config.ConfigManager.getIgnoreWorlds;
 
 @NullMarked
 public class damageindicatorCommand implements BasicCommand {
@@ -47,8 +49,12 @@ public class damageindicatorCommand implements BasicCommand {
                 ignoredEntities.setLength(ignoredEntities.length() - 2); // Remove the last comma and space
             }
             commandSourceStack.getSender().sendMessage(ignoredEntities.toString());
+        } else if (args[0].equalsIgnoreCase("test")) {
+        commandSourceStack.getSender().sendMessage(ArmorStandName.format("<aqua>Test damage indicator</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"));
+        } else if (args[0].equalsIgnoreCase("testheal")) {
+            commandSourceStack.getSender().sendMessage(ArmorStandName.format(ConfigManager.getHealthIndicatorFormat()));
         } else {
-            commandSourceStack.getSender().sendMessage(ChatColor.RED + "Unknown command. Use /damageindicator reload to reload the configuration.");
+            commandSourceStack.getSender().sendMessage(ChatColor.RED + "Unknown command.");
         }
 
     }
@@ -56,7 +62,7 @@ public class damageindicatorCommand implements BasicCommand {
     @Override
     public Collection<String> suggest(CommandSourceStack commandSourceStack, String[] args) {
         if (args.length == 0) {
-            return List.of("reload", "listworld", "listignore");
+            return List.of("reload", "listworld", "listignore", "test");
 
         }
 
