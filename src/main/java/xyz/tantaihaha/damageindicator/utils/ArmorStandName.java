@@ -12,30 +12,37 @@ import xyz.tantaihaha.damageindicator.config.ConfigManager;
 public class ArmorStandName {
 
     public static @NotNull Component format(String input) {
-        return (Component) MiniMessage.miniMessage().deserialize(input);
+        return MiniMessage.miniMessage().deserialize(input);
     }
 
     public static @NotNull Component format(String input, TagResolver... tagResolvers) {
-        return (Component) MiniMessage.miniMessage().deserialize(input, tagResolvers);
+        return MiniMessage.miniMessage().deserialize(input, tagResolvers);
     }
 
     public static Component damageFormat(Double finalDamage, Entity entity) {
         if (!(entity instanceof Damageable damageable)) throw new IllegalArgumentException("Entity must be an instance of Damageable");
         String finalDamageString = String.format("%.1f", finalDamage);
-        String currentHealthString = String.format("%.1f", damageable.getHealth());
+        double healthAfterDamage = damageable.getHealth() - finalDamage;
+        String currentHealthString = String.format("%.1f", Math.max(0, healthAfterDamage));
         String maxHealthString = String.format("%.1f", damageable.getMaxHealth());
 
         // Damage is overkill
-         if(finalDamage >= damageable.getHealth()) format(ConfigManager.getDamageIndicatorFormat(),
-                    Placeholder.parsed("damage", finalDamageString),
-                    Placeholder.parsed("currenthealth", String.valueOf(0)),
-                    Placeholder.parsed("maxhealth", maxHealthString));
+         if(finalDamage >= damageable.getHealth()) {
+             return format(ConfigManager.getDamageIndicatorFormat(),
+                     Placeholder.parsed("damage", finalDamageString),
+                     Placeholder.parsed("currenthealth", "0"),
+                     Placeholder.parsed("maxhealth", maxHealthString));
+         }
 
         return format(ConfigManager.getDamageIndicatorFormat(),
                 Placeholder.parsed("damage", finalDamageString),
                 Placeholder.parsed("currenthealth", currentHealthString),
                 Placeholder.parsed("maxhealth", maxHealthString));
 
+    }
+
+    public static Component criticalDamageFormat(Double finalDamage, Entity entity) {
+        return format("<gold><b>✧</b></gold> ").append(damageFormat(finalDamage, entity));
     }
 
     public static Component healFormat(Double healAmount, Entity entity) {

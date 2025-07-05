@@ -12,7 +12,6 @@ import static xyz.tantaihaha.damageindicator.config.ConfigManager.init;
 public class ConfigFile {
 
     protected final static String CONFIG_FILE_NAME = "config.yml";
-    private static YamlConfiguration config;
 
     public ConfigFile() {
         // Default constructor
@@ -24,7 +23,7 @@ public class ConfigFile {
         // Check if the config file exists, if not, copy default from the plugin resources
         if (!configFile.exists()) DamageIndicator.getInstance().saveResource(CONFIG_FILE_NAME, false);
 
-        config = new YamlConfiguration();
+        YamlConfiguration config = new YamlConfiguration();
         config.options().parseComments(true);
 
         try {
@@ -34,10 +33,4 @@ public class ConfigFile {
             throw new RuntimeException(e);
         }
     }
-
-    public static YamlConfiguration getConfig() {
-        return config;
-    }
-
-
 }

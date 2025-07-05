@@ -1,6 +1,6 @@
 package xyz.tantaihaha.damageindicator.listener;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -35,10 +35,10 @@ public class PlayerListener implements Listener {
 
         double finalDamage = event.getFinalDamage();
         Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
-        String displayText = ArmorStandName.damageFormat(finalDamage, entity).toString();
+        String displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.damageFormat(finalDamage, entity));
 
         if (isCritical) {
-            displayText = ChatColor.GOLD.toString() + ChatColor.BOLD + "✧ " + displayText;
+            displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.criticalDamageFormat(finalDamage, entity));
         }
 
         ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, displayText);

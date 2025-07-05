@@ -14,7 +14,6 @@ import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
 import java.util.Collection;
 import java.util.List;
 
-import static xyz.tantaihaha.damageindicator.config.ConfigManager.getDamageIndicatorFormat;
 import static xyz.tantaihaha.damageindicator.config.ConfigManager.getIgnoreWorlds;
 
 @NullMarked
@@ -34,7 +33,7 @@ public class damageindicatorCommand implements BasicCommand {
         } else if (args[0].equalsIgnoreCase("listworld")) {
             StringBuilder worlds = new StringBuilder(ChatColor.GREEN + "Disabled worlds: ");
             if (getIgnoreWorlds().isEmpty()) {
-                worlds.append(ChatColor.RED + "None");
+                worlds.append("None");
             } else {
                 ConfigManager.getIgnoreWorlds().forEach(world -> worlds.append(ChatColor.YELLOW).append(world.getName()).append(ChatColor.GREEN).append(", "));
                 worlds.setLength(worlds.length() - 2); // Remove the last comma and space
@@ -43,7 +42,7 @@ public class damageindicatorCommand implements BasicCommand {
         } else if (args[0].equalsIgnoreCase("listignore")) {
             StringBuilder ignoredEntities = new StringBuilder(ChatColor.GREEN + "Ignored entities: ");
             if (ConfigManager.getIgnoreEntities().isEmpty()) {
-                ignoredEntities.append(ChatColor.RED + "None");
+                ignoredEntities.append("None");
             } else {
                 ConfigManager.getIgnoreEntities().forEach(entity -> ignoredEntities.append(ChatColor.YELLOW).append(entity.name()).append(ChatColor.GREEN).append(", "));
                 ignoredEntities.setLength(ignoredEntities.length() - 2); // Remove the last comma and space

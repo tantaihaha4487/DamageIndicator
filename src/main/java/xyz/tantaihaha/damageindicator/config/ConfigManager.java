@@ -14,7 +14,7 @@ public class ConfigManager {
     private static ArrayList<World> ignoreWorlds = new ArrayList<>();
     private static ArrayList<EntityType> ignoreEntities = new ArrayList<>();
     private static String healthIndicatorFormat;
-    private static String damageIndicatorFormat = "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
+    private static String damageIndicatorFormat;
 
     protected static void init(YamlConfiguration config) {
         // Load plugin enable configuration
@@ -55,7 +55,7 @@ public class ConfigManager {
         }
 
         // Load damage indicator format
-        damageIndicatorFormat = config.getString("indicator.damage-format", "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>");
+        damageIndicatorFormat = config.getString("indicator.damage-indicator-format", "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>");
         if (damageIndicatorFormat.isEmpty()) {
             Bukkit.getLogger().warning("Damage indicator format is not set or empty. Using default format.");
             damageIndicatorFormat = "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
@@ -67,10 +67,6 @@ public class ConfigManager {
         return isEnablePlugin;
     }
 
-    public void setPluginEnabled(boolean pluginEnable) {
-        ConfigManager.isEnablePlugin = pluginEnable;
-    }
-
     public static int getIndicatorLifetime() {
         return indicatorLifetime;
     }
@@ -79,35 +75,15 @@ public class ConfigManager {
         return healthIndicatorFormat;
     }
 
-    public static void setHealthIndicatorFormat(String healthIndicatorFormat) {
-        ConfigManager.healthIndicatorFormat = healthIndicatorFormat;
-    }
-
     public static String getDamageIndicatorFormat() {
         return damageIndicatorFormat;
-    }
-
-    public static void setDamageIndicatorFormat(String damageIndicatorFormat) {
-        ConfigManager.damageIndicatorFormat = damageIndicatorFormat;
-    }
-
-    public static void setIndicatorLifetime(int indicatorLifetime) {
-        ConfigManager.indicatorLifetime = indicatorLifetime;
     }
 
     public static ArrayList<World> getIgnoreWorlds() {
         return ignoreWorlds;
     }
 
-    public static void setIgnoreWorlds(ArrayList<World> ignoreWorlds) {
-        ConfigManager.ignoreWorlds = ignoreWorlds;
-    }
-
     public static ArrayList<EntityType> getIgnoreEntities() {
         return ignoreEntities;
-    }
-
-    public static void setIgnoreEntities(ArrayList<EntityType> ignoreEntities) {
-        ConfigManager.ignoreEntities = ignoreEntities;
     }
 }
