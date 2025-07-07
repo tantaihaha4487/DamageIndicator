@@ -26,19 +26,15 @@ public class ArmorStandName {
         String currentHealthString = String.format("%.1f", Math.max(0, healthAfterDamage));
         String maxHealthString = String.format("%.1f", damageable.getMaxHealth());
 
-        // Damage is overkill
-         if(finalDamage >= damageable.getHealth()) {
-             return format(ConfigManager.getDamageIndicatorFormat(),
-                     Placeholder.parsed("damage", finalDamageString),
-                     Placeholder.parsed("currenthealth", "0"),
-                     Placeholder.parsed("maxhealth", maxHealthString));
-         }
+        String format = ConfigManager.getDamageIndicatorFormat()
+                .replace("{damage}", "<damage>")
+                .replace("{currenthealth}", "<currenthealth>")
+                .replace("{maxhealth}", "<maxhealth>");
 
-        return format(ConfigManager.getDamageIndicatorFormat(),
+        return format(format,
                 Placeholder.parsed("damage", finalDamageString),
                 Placeholder.parsed("currenthealth", currentHealthString),
                 Placeholder.parsed("maxhealth", maxHealthString));
-
     }
 
     public static Component criticalDamageFormat(Double finalDamage, Entity entity) {
@@ -51,7 +47,12 @@ public class ArmorStandName {
         String healAmountString = String.format("%.1f", healAmount);
         String currentHealthString = String.format("%.1f", damageable.getHealth());
         String maxHealthString = String.format("%.1f", damageable.getMaxHealth());
-        return format(ConfigManager.getHealthIndicatorFormat(),
+        String format = ConfigManager.getHealthIndicatorFormat()
+                .replace("{healamount}", "<healamount>")
+                .replace("{currenthealth}", "<currenthealth>")
+                .replace("{maxhealth}", "<maxhealth>");
+
+        return format(format,
                 Placeholder.parsed("healamount", healAmountString),
                 Placeholder.parsed("currenthealth", currentHealthString),
                 Placeholder.parsed("maxhealth", maxHealthString));

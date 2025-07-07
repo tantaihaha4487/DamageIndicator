@@ -7,6 +7,12 @@ enable: true
 
 indicator:
   # Format for displaying in indicators
+
+  #
+  # You can see documentation for color codes below:
+  # https://docs.advntr.dev/minimessage/format.html
+  #
+
   # {healamount} is the amount of health restored
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity

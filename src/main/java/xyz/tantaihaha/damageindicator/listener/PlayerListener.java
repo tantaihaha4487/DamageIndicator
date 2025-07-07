@@ -35,10 +35,12 @@ public class PlayerListener implements Listener {
 
         double finalDamage = event.getFinalDamage();
         Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
-        String displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.damageFormat(finalDamage, entity));
+        String displayText;
 
         if (isCritical) {
             displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.criticalDamageFormat(finalDamage, entity));
+        } else {
+            displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.damageFormat(finalDamage, entity));
         }
 
         ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, displayText);
