@@ -1,0 +1,60 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  security-events: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Get project version
+        id: get_version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Find JAR file
+        id: find_jar
+        run: |
+          JAR_PATH=$(ls target/*.jar | head -n 1)
+          echo "jar_path=$JAR_PATH" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: DamageIndicator-v${{ steps.get_version.outputs.version }}
+          name: DamageIndicator v${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_jar.outputs.jar_path }}
+          asset_name: DamageIndicator-v${{ steps.get_version.outputs.version }}.jar
+          asset_content_type: application/java-archive
+
