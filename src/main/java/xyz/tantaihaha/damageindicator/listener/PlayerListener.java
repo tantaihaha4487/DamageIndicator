@@ -1,5 +1,8 @@
 package xyz.tantaihaha.damageindicator.listener;
 
+import java.util.List;
+import java.util.Objects;
+
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,16 +14,23 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
+import xyz.tantaihaha.damageindicator.config.ConfigLogger;
+import xyz.tantaihaha.damageindicator.config.ConfigManager;
 import xyz.tantaihaha.damageindicator.manager.ArmorStandManager;
 import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
 
 public class PlayerListener implements Listener {
+
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 
         // if damaged by player
         if (!(event.getDamager() instanceof Player player)) return;
         if (ArmorStandManager.isIgnoreType(event.getEntity())) return;
+
+        // Config ignores
+        if (ConfigManager.getIgnoreEntities().contains(event.getEntityType())) return;
+        if (ConfigManager.getIgnoreWorlds().contains(event.getEntity().getWorld())) return;
 
         Entity entity = event.getEntity();
 
@@ -35,15 +45,13 @@ public class PlayerListener implements Listener {
 
         double finalDamage = event.getFinalDamage();
         Location location = entity.getLocation().add(ArmorStandManager.randomPosition(), entity.getHeight() + 0.03D, ArmorStandManager.randomPosition());
-        String displayText;
+        List<ArmorStand> armorStands;
 
         if (isCritical) {
-            displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.criticalDamageFormat(finalDamage, entity));
+            armorStands = ArmorStandManager.spawnArmorStand(location, ArmorStandName.criticalDamageFormat(finalDamage, entity));
         } else {
-            displayText = LegacyComponentSerializer.legacySection().serialize(ArmorStandName.damageFormat(finalDamage, entity));
+            armorStands = ArmorStandManager.spawnArmorStand(location, ArmorStandName.damageFormat(finalDamage, entity));
         }
-
-        ArmorStand armorStand = ArmorStandManager.spawnArmorStand(location, displayText);
-        ArmorStandManager.removeArmorStandAfter(armorStand, 12);
+        ArmorStandManager.removeArmorStandAfter(armorStands, ConfigManager.getIndicatorLifetime());
     }
 }

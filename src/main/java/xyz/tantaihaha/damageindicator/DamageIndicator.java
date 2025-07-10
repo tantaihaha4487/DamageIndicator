@@ -4,6 +4,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tantaihaha.damageindicator.command.damageindicatorCommand;
 import xyz.tantaihaha.damageindicator.config.ConfigFile;
+import xyz.tantaihaha.damageindicator.config.ConfigLogger;
 import xyz.tantaihaha.damageindicator.config.ConfigManager;
 import xyz.tantaihaha.damageindicator.listener.EntityListener;
 import xyz.tantaihaha.damageindicator.listener.PlayerListener;
@@ -27,6 +28,10 @@ public final class DamageIndicator extends JavaPlugin {
         }
 
         getServer().getLogger().info("DamageIndicator plugin is starting up!");
+
+        // Log configuration details
+        ConfigLogger.logIgnoredEntity();
+        ConfigLogger.logIgnoredWorld();
 
         // Register events
         getServer().getPluginManager().registerEvents(new EntityListener(), this);

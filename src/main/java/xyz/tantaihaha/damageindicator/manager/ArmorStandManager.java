@@ -1,5 +1,7 @@
 package xyz.tantaihaha.damageindicator.manager;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -10,42 +12,66 @@ import org.bukkit.scheduler.BukkitScheduler;
 import xyz.tantaihaha.damageindicator.DamageIndicator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ArmorStandManager {
     public static List<ArmorStand> armorStandList = new ArrayList<>();
 
-    public static ArmorStand spawnArmorStand(Location location, String name) {
+    public static List<ArmorStand> spawnArmorStand(Location location, Component name) {
+        // split the name into lines if it contains newlines for bypass custom name length limit
+        String legacyName = LegacyComponentSerializer.legacySection().serialize(name);
+        String[] lines = legacyName.split("\n");
+        List<ArmorStand> stands = new ArrayList<>();
+        Location currentLocation = location.clone();
 
-        return location.getWorld().spawn(location, ArmorStand.class, armorStand -> {
-            armorStand.setCustomName(name);
-            armorStand.setDisabledSlots(EquipmentSlot.values());
-            armorStand.setInvisible(true);
-            armorStand.setMarker(true);
-            armorStand.setCanPickupItems(false);
-            armorStand.setGravity(false);
-            armorStand.setSilent(true);
-            armorStand.setBasePlate(false);
-            armorStand.setInvulnerable(true);
-            armorStand.setCustomNameVisible(true);
+        for (String line : lines) {
+            if (line.isEmpty()) {
+                currentLocation.add(0, -0.25, 0);
+                continue;
+            }
+
+            ArmorStand armorStand = currentLocation.getWorld().spawn(currentLocation, ArmorStand.class, stand -> {
+                stand.customName(LegacyComponentSerializer.legacySection().deserialize(line));
+                stand.setDisabledSlots(EquipmentSlot.values());
+                stand.setInvisible(true);
+                stand.setMarker(true);
+                stand.setCanPickupItems(false);
+                stand.setGravity(false);
+                stand.setSilent(true);
+                stand.setBasePlate(false);
+                stand.setInvulnerable(true);
+                stand.setCustomNameVisible(true);
+            });
             armorStandList.add(armorStand);
-        });
+            stands.add(armorStand);
+            currentLocation.add(0, -0.25, 0);
+        }
+        return stands;
     }
 
     public static void removeArmorStandAfter(ArmorStand armorStand, int delay) {
+        removeArmorStandAfter(Collections.singletonList(armorStand), delay);
+    }
+
+    public static void removeArmorStandAfter(List<ArmorStand> armorStands, int delay) {
         BukkitScheduler scheduler = Bukkit.getScheduler();
         scheduler.runTaskLater(DamageIndicator.getInstance(), () -> {
-            if (!armorStand.isValid()) return;
-            armorStandList.remove(armorStand);
-            armorStand.remove();
-
+            for (ArmorStand armorStand : armorStands) {
+                if (armorStand.isValid()) {
+                    armorStandList.remove(armorStand);
+                    armorStand.remove();
+                }
+            }
         }, delay);
     }
 
+
     public static void removeAllArmorStands() {
         for (ArmorStand armorStand : armorStandList) {
-            if (!armorStand.isValid()) return;
-            armorStand.remove();
+            if (armorStand.isValid()) {
+                armorStand.remove();
+            }
         }
         armorStandList.clear();
     }

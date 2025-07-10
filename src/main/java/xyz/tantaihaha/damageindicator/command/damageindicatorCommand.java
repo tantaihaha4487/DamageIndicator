@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NullMarked;
 import xyz.tantaihaha.damageindicator.config.ConfigFile;
+import xyz.tantaihaha.damageindicator.config.ConfigLogger;
 import xyz.tantaihaha.damageindicator.config.ConfigManager;
-import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,31 +27,17 @@ public class damageindicatorCommand implements BasicCommand {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            ConfigFile.load();
+            try {
+                ConfigFile.load();
+            } catch (Exception e) {
+                commandSourceStack.getSender().sendMessage(ChatColor.RED + "Failed to reload configuration: " + e.getMessage());
+                Bukkit.getLogger().severe("Error reloading DamageIndicator plugin configuration: " + e.getMessage());
+                return;
+            }
             commandSourceStack.getSender().sendMessage(ChatColor.GREEN + "DamageIndicator plugin configuration reloaded.");
             Bukkit.getLogger().info("DamageIndicator plugin configuration reloaded by command.");
-        } else if (args[0].equalsIgnoreCase("listworld")) {
-            StringBuilder worlds = new StringBuilder(ChatColor.GREEN + "Disabled worlds: ");
-            if (getIgnoreWorlds().isEmpty()) {
-                worlds.append("None");
-            } else {
-                ConfigManager.getIgnoreWorlds().forEach(world -> worlds.append(ChatColor.YELLOW).append(world.getName()).append(ChatColor.GREEN).append(", "));
-                worlds.setLength(worlds.length() - 2); // Remove the last comma and space
-            }
-            commandSourceStack.getSender().sendMessage(worlds.toString());
-        } else if (args[0].equalsIgnoreCase("listignore")) {
-            StringBuilder ignoredEntities = new StringBuilder(ChatColor.GREEN + "Ignored entities: ");
-            if (ConfigManager.getIgnoreEntities().isEmpty()) {
-                ignoredEntities.append("None");
-            } else {
-                ConfigManager.getIgnoreEntities().forEach(entity -> ignoredEntities.append(ChatColor.YELLOW).append(entity.name()).append(ChatColor.GREEN).append(", "));
-                ignoredEntities.setLength(ignoredEntities.length() - 2); // Remove the last comma and space
-            }
-            commandSourceStack.getSender().sendMessage(ignoredEntities.toString());
-        } else if (args[0].equalsIgnoreCase("test")) {
-        commandSourceStack.getSender().sendMessage(ArmorStandName.format("<aqua>Test damage indicator</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"));
-        } else if (args[0].equalsIgnoreCase("testheal")) {
-            commandSourceStack.getSender().sendMessage(ArmorStandName.format(ConfigManager.getHealthIndicatorFormat()));
+            ConfigLogger.logIgnoredEntity();
+            ConfigLogger.logIgnoredWorld();
         } else {
             commandSourceStack.getSender().sendMessage(ChatColor.RED + "Unknown command.");
         }
@@ -61,10 +47,9 @@ public class damageindicatorCommand implements BasicCommand {
     @Override
     public Collection<String> suggest(CommandSourceStack commandSourceStack, String[] args) {
         if (args.length == 0) {
-            return List.of("reload", "listworld", "listignore", "test");
+            return List.of("reload");
 
         }
-
         return Bukkit.getOnlinePlayers().stream()
                 .map(Player::getName)
                 .filter(name -> name.toLowerCase().startsWith(args[args.length - 1].toLowerCase()))

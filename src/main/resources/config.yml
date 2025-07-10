@@ -13,14 +13,22 @@ indicator:
   # https://docs.advntr.dev/minimessage/format.html
   #
 
+  # {mobname} is the name of the entity
   # {healamount} is the amount of health restored
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity
   health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
+
   # {damage} is the amount of damage dealt
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity
   damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+
+  # {damage} is the amount of damage dealt
+  # {currenthealth} is the current health of the entity
+  # {maxhealth} is the maximum health of the entity
+  critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+
 
   # The lifetime of the indicators in ticks before they disappear
   # must be greater than 1

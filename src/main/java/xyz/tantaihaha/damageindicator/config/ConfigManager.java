@@ -11,10 +11,11 @@ public class ConfigManager {
 
     private static boolean isEnablePlugin;
     private static int indicatorLifetime; // ticks
-    private static ArrayList<World> ignoreWorlds = new ArrayList<>();
-    private static ArrayList<EntityType> ignoreEntities = new ArrayList<>();
+    private static final ArrayList<World> ignoreWorlds = new ArrayList<>();
+    private static final ArrayList<EntityType> ignoreEntities = new ArrayList<>();
     private static String healthIndicatorFormat;
     private static String damageIndicatorFormat;
+    private static String criticalDamageIndicatorFormat;
 
     protected static void init(YamlConfiguration config) {
         // Load plugin enable configuration
@@ -61,6 +62,13 @@ public class ConfigManager {
             damageIndicatorFormat = "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
         }
 
+        //Load critical damage indicator format
+        criticalDamageIndicatorFormat = config.getString("indicator.critical-damage-indicator-format", "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>");
+        if (criticalDamageIndicatorFormat.isEmpty()) {
+            Bukkit.getLogger().warning("Critical damage indicator format is not set or empty. Using default format.");
+            criticalDamageIndicatorFormat = "<<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>";
+        }
+
     }
 
     public static boolean isPluginEnabled() {
@@ -77,6 +85,10 @@ public class ConfigManager {
 
     public static String getDamageIndicatorFormat() {
         return damageIndicatorFormat;
+    }
+
+    public static String getCriticalDamageIndicatorFormat() {
+        return criticalDamageIndicatorFormat;
     }
 
     public static ArrayList<World> getIgnoreWorlds() {
