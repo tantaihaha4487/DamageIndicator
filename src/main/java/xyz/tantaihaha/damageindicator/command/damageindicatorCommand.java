@@ -21,6 +21,11 @@ public class damageindicatorCommand implements BasicCommand {
 
     @Override
     public void execute(@NotNull CommandSourceStack commandSourceStack, String[] args) {
+        if (!commandSourceStack.getSender().hasPermission("damageindicator.use")) {
+            commandSourceStack.getSender().sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            return;
+        }
+
         if (args.length == 0) {
             commandSourceStack.getSender().sendMessage(ChatColor.GREEN + "DamageIndicator plugin is " + (ConfigManager.isPluginEnabled() ? "enabled" : "disabled") + ".");
             return;
