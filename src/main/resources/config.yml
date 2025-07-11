@@ -1,4 +1,4 @@
-#a
+#
 # Enable or disable the plugin
 # This will be effect when reload or restart the server.
 # true to enable, false to disable
@@ -13,23 +13,25 @@ indicator:
   #
   # Rainbow critical damage indicator:
   # <rainbow>✧ -{damage} [{currenthealth}/{maxhealth}❤]</rainbow>
+
   #
   # You can see documentation for color codes below:
   # https://docs.advntr.dev/minimessage/format.html
   #
 
   # {mobname} is the name of the entity
-
   # {healamount} is the amount of health restored
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity
   health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
+  # {mobname} is the name of the entity
   # {damage} is the amount of damage dealt
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity
   damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
+  # {mobname} is the name of the entity
   # {damage} is the amount of damage dealt
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity

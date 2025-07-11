@@ -34,39 +34,61 @@ DamageIndicator is a Spigot/Paper plugin that displays damage dealt to entities 
 The plugin generates a `config.yml` file in the `plugins/DamageIndicator/` directory upon first run. Here are some key configuration options:
 
 ```yaml
-# config.yml example
-
+#
 # Enable or disable the plugin
-plugin-enabled: true
+# This will be effect when reload or restart the server.
+# true to enable, false to disable
+#
+enable: true
 
-# List of entity types to ignore (e.g., ARMOR_STAND, VILLAGER)
-ignored-entities:
-  - ARMOR_STAND
+indicator:
+  # Format for displaying in indicators
 
-# List of worlds where damage indicators should not appear
-ignored-worlds:
-  - world_nether
-  - world_the_end
+  #
+  # Example formats:
+  #
+  # Rainbow critical damage indicator:
+  # <rainbow>✧ -{damage} [{currenthealth}/{maxhealth}❤]</rainbow>
 
-# Format for displaying health indicators (supports MiniMessage format)
-# Example: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {healamount}, {currenthealth}, {maxhealth}
-health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  #
+  # You can see documentation for color codes below:
+  # https://docs.advntr.dev/minimessage/format.html
+  #
 
-# Format for displaying damage indicators (supports MiniMessage format)
-# Example: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {damage}, {currenthealth}, {maxhealth}
-damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  # {mobname} is the name of the entity
+  # {healamount} is the amount of health restored
+  # {currenthealth} is the current health of the entity
+  # {maxhealth} is the maximum health of the entity
+  health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
-# Format for displaying critical damage indicators (supports MiniMessage format)
-# Example: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {damage}, {currenthealth}, {maxhealth}
-critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  # {mobname} is the name of the entity
+  # {damage} is the amount of damage dealt
+  # {currenthealth} is the current health of the entity
+  # {maxhealth} is the maximum health of the entity
+  damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
-# The lifetime of the indicators in ticks before they disappear (must be greater than 1)
-lifetime: 12
+  # {mobname} is the name of the entity
+  # {damage} is the amount of damage dealt
+  # {currenthealth} is the current health of the entity
+  # {maxhealth} is the maximum health of the entity
+  critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
-# Add more configuration options as needed based on ConfigFile.java
+
+  # The lifetime of the indicators in ticks before they disappear
+  # must be greater than 1
+  lifetime: 12
+
+# List of entities and worlds to ignore
+ignore:
+  # This will not show any indicators for these entities
+  # You can add more entities to this list
+  entities:
+    - "item_frame"
+    - "item" # Dropped items
+
+  # List of worlds to ignore
+  worlds:
+    - "world_example"
 ```
 
 ## Commands
@@ -74,11 +96,12 @@ lifetime: 12
 | Command           | Description                               | Permissions (Assumed) |
 |-------------------|-------------------------------------------|-----------------------|
 | `/damageindicator` | Base command for plugin information/reload. | `damageindicator.use` |
+| `/damageindicator reload` | Reloads the plugin configuration. | `damageindicator.use` |
 
 ## Support & Contributing
 
 If you encounter any issues, have suggestions, or would like to contribute, please visit the [GitHub repository](https://github.com/tantaihaha4487/DamageIndicator/) or open an issue there.
 
 **Authors**: TantaiHaha, Thanachot
-**Version**: 2.0.0
+**Version**: 2.0.1
 **Version**: 1.21.x
