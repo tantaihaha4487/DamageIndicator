@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DamageIndicator" default="Build" basedir=".">
 
-    <property name="jar.name" value="${ant.project.name}-1.0.0.jar"/>
+    <property name="jar.name" value="${ant.project.name}-2.0.1.jar"/>
     <property name="output.dir" value="/home/mashiro/Minecraft/servers/test-server/plugins"/>
     <property name="classes.dir" value="target/classes"/>
 
