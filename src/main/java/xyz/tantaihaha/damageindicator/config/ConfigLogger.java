@@ -11,18 +11,18 @@ public class ConfigLogger {
     }
 
     public static void logIgnoredEntity() {
-        if (ConfigManager.getIgnoreEntities() == null || ConfigManager.getIgnoreEntities().isEmpty()) return;
+        if (ConfigManager.getBlacklistEntities().isEmpty()) return;
 
 
         log("| Ignored entities |" + "\n" +
-                listLogValue(ConfigManager.getIgnoreEntities()));
+                listLogValue(ConfigManager.getBlacklistEntities()));
     }
 
     public static void logIgnoredWorld() {
-        if (ConfigManager.getIgnoreWorlds() == null || ConfigManager.getIgnoreWorlds().isEmpty()) return;
+        if (ConfigManager.getBlacklistWorlds().isEmpty()) return;
 
         log("| Ignored worlds |" + "\n" +
-                listLogValue(ConfigManager.getIgnoreWorlds()));
+                listLogValue(ConfigManager.getBlacklistWorlds()));
     }
 
     public static String listLogValue(List<?> list) {

@@ -26,8 +26,8 @@ public class EntityListener implements Listener {
         if (ArmorStandManager.isIgnoreType(event.getEntity())) return;
 
         // Config ignores
-        if (ConfigManager.getIgnoreEntities().contains(event.getEntityType())) return;
-        if (ConfigManager.getIgnoreWorlds().contains(event.getEntity().getWorld())) return;
+        if (ConfigManager.getBlacklistEntities().contains(event.getEntityType())) return;
+        if (ConfigManager.getBlacklistWorlds().contains(event.getEntity().getWorld())) return;
 
         Entity entity = event.getEntity();
         double finalDamage = event.getFinalDamage();

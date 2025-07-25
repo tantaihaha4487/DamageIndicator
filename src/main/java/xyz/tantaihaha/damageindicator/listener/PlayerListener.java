@@ -1,9 +1,7 @@
 package xyz.tantaihaha.damageindicator.listener;
 
 import java.util.List;
-import java.util.Objects;
 
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -14,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
-import xyz.tantaihaha.damageindicator.config.ConfigLogger;
 import xyz.tantaihaha.damageindicator.config.ConfigManager;
 import xyz.tantaihaha.damageindicator.manager.ArmorStandManager;
 import xyz.tantaihaha.damageindicator.utils.ArmorStandName;
@@ -29,8 +26,8 @@ public class PlayerListener implements Listener {
         if (ArmorStandManager.isIgnoreType(event.getEntity())) return;
 
         // Config ignores
-        if (ConfigManager.getIgnoreEntities().contains(event.getEntityType())) return;
-        if (ConfigManager.getIgnoreWorlds().contains(event.getEntity().getWorld())) return;
+        if (ConfigManager.getBlacklistEntities().contains(event.getEntityType())) return;
+        if (ConfigManager.getBlacklistWorlds().contains(event.getEntity().getWorld())) return;
 
         Entity entity = event.getEntity();
 

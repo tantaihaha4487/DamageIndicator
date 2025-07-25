@@ -1,6 +1,14 @@
 # DamageIndicator
+<p align="center">
+  <a href="https://github.com/tantaihaha4487/Damageindicator/actions/workflows/build-plugin.yml">
+    <img src="https://github.com/tantaihaha4487/Damageindicator/actions/workflows/build-plugin.yml/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://github.com/tantaihaha4487/Damageindicator/releases/latest">
+    <img src="https://img.shields.io/github/v/release/tantaihaha4487/Damageindicator?style=flat-square" alt="Latest Release">
+  </a>
+</p>
 
-DamageIndicator is a Paper plugin that displays damage dealt to entities a. This provides a visual representation of combat feedback, enhancing the player experience on your survival server.
+DamageIndicator is a Paper plugin that displays damage dealt to entities. This provides a visual representation of combat feedback, enhancing the player experience on your survival server.
 
 ## Features
 
@@ -36,46 +44,40 @@ The plugin generates a `config.yml` file in the `plugins/DamageIndicator/` direc
 ```yaml
 # config.yml example
 
-# Enable or disable the plugin
-plugin-enabled: true
+#
+# Enable or disable the plugin.
+#
+enable: true
 
-# List of entity types to ignore (e.g., ARMOR_STAND, VILLAGER)
-ignored-entities:
-  - ARMOR_STAND
-
-# List of worlds where damage indicators should not appear
-ignored-worlds:
-  - world_nether
-  - world_the_end
+indicator:
+  # Format for displaying in indicators
 
   #
-  # You can see documentation for color codes below:
-  # https://docs.advntr.dev/minimessage/format.html
+  # You can generate your own format below:
+  # https://www.birdflop.com/resources/rgb/
+  # select Color format to MiniMessage
   #
+  health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
-# Format for displaying health indicators (supports MiniMessage format)
-# Example: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {healamount}, {currenthealth}, {maxhealth}
-health-indicator-format: "<aqua>+{healamount}</aqua> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
-# Format for displaying damage indicators (supports MiniMessage format)
-# Example: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {damage}, {currenthealth}, {maxhealth}
-damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
+  # The lifetime of the indicators in ticks before they disappear
+  lifetime: 12
 
-# Format for displaying critical damage indicators (supports MiniMessage format)
-# Example: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-# Placeholders: {damage}, {currenthealth}, {maxhealth}
-critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-
-# The lifetime of the indicators in ticks before they disappear (must be greater than 1)
-lifetime: 12
+# List of entities and worlds to ignore
+blacklist:
+  entities:
+    - "item_frame"
+    - "item"
+  worlds:
+    - "world_example"
 ```
 
 ## Commands
 
-| Command           | Description                               | Permissions (Assumed) |
-|-------------------|-------------------------------------------|-----------------------|
+| Command            | Description                                 | Permissions (Assumed) |
+|--------------------|---------------------------------------------|-----------------------|
 | `/damageindicator` | Base command for plugin information/reload. | `damageindicator.use` |
 
 ## Support & Contributing
@@ -83,5 +85,5 @@ lifetime: 12
 If you encounter any issues, have suggestions, or would like to contribute, please visit the [GitHub repository](https://github.com/tantaihaha4487/DamageIndicator/) or open an issue there.
 
 **Authors**: TantaiHaha, Thanachot
-**Version**: 2.0.1
+**Version**: 2.0.2
 **Version**: 1.21.x

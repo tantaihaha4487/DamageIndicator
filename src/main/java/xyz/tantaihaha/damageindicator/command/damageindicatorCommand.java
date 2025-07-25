@@ -14,8 +14,6 @@ import xyz.tantaihaha.damageindicator.config.ConfigManager;
 import java.util.Collection;
 import java.util.List;
 
-import static xyz.tantaihaha.damageindicator.config.ConfigManager.getIgnoreWorlds;
-
 @NullMarked
 public class damageindicatorCommand implements BasicCommand {
 

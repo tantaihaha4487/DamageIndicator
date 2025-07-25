@@ -1,7 +1,5 @@
 #
-# Enable or disable the plugin
-# This will be effect when reload or restart the server.
-# true to enable, false to disable
+# Enable or disable the plugin. This will be effect when reload or restart the server.
 #
 enable: true
 
@@ -9,14 +7,9 @@ indicator:
   # Format for displaying in indicators
 
   #
-  # Example formats:
-  #
-  # Rainbow critical damage indicator:
-  # <rainbow>✧ -{damage} [{currenthealth}/{maxhealth}❤]</rainbow>
-
-  #
-  # You can see documentation for color codes below:
-  # https://docs.advntr.dev/minimessage/format.html
+  # You can generate your own format below:
+  # https://www.birdflop.com/resources/rgb/
+  # select Color format to MiniMessage
   #
 
   # {mobname} is the name of the entity
@@ -30,11 +23,6 @@ indicator:
   # {currenthealth} is the current health of the entity
   # {maxhealth} is the maximum health of the entity
   damage-indicator-format: "<red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
-
-  # {mobname} is the name of the entity
-  # {damage} is the amount of damage dealt
-  # {currenthealth} is the current health of the entity
-  # {maxhealth} is the maximum health of the entity
   critical-damage-indicator-format: "<gold><b>✧</b></gold> <red>-{damage}</red> <green>[{currenthealth}/{maxhealth}❤]</green>"
 
 
@@ -43,7 +31,7 @@ indicator:
   lifetime: 12
 
 # List of entities and worlds to ignore
-ignore:
+blacklist:
   # This will not show any indicators for these entities
   # You can add more entities to this list
   entities:
